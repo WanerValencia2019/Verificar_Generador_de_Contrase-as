@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_contraseña_verificador" default="compile.module.contraseña_verificador">
+  <dirname property="module.contraseña_verificador.basedir" file="${ant.file.module_contraseña_verificador}"/>
+  
+  <property name="module.jdk.home.contraseña_verificador" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.contraseña_verificador" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.contraseña_verificador" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.contraseña_verificador" value="-encoding windows-1252 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="contraseña_verificador.output.dir" value="${module.contraseña_verificador.basedir}/out/production/Contraseña_Verificador"/>
+  <property name="contraseña_verificador.testoutput.dir" value="${module.contraseña_verificador.basedir}/out/test/Contraseña_Verificador"/>
+  
+  <path id="contraseña_verificador.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="contraseña_verificador.module.production.classpath">
+    <path refid="${module.jdk.classpath.contraseña_verificador}"/>
+  </path>
+  
+  <path id="contraseña_verificador.runtime.production.module.classpath">
+    <pathelement location="${contraseña_verificador.output.dir}"/>
+  </path>
+  
+  <path id="contraseña_verificador.module.classpath">
+    <path refid="${module.jdk.classpath.contraseña_verificador}"/>
+    <pathelement location="${contraseña_verificador.output.dir}"/>
+  </path>
+  
+  <path id="contraseña_verificador.runtime.module.classpath">
+    <pathelement location="${contraseña_verificador.testoutput.dir}"/>
+    <pathelement location="${contraseña_verificador.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.contraseña_verificador">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.contraseña_verificador">
+    <patternset refid="excluded.from.module.contraseña_verificador"/>
+  </patternset>
+  
+  <path id="contraseña_verificador.module.sourcepath">
+    <dirset dir="${module.contraseña_verificador.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.contraseña_verificador" depends="compile.module.contraseña_verificador.production,compile.module.contraseña_verificador.tests" description="Compile module Contraseña_Verificador"/>
+  
+  <target name="compile.module.contraseña_verificador.production" depends="register.custom.compilers" description="Compile module Contraseña_Verificador; production classes">
+    <mkdir dir="${contraseña_verificador.output.dir}"/>
+    <javac2 destdir="${contraseña_verificador.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.contraseña_verificador}/javac">
+      <compilerarg line="${compiler.args.contraseña_verificador}"/>
+      <bootclasspath refid="contraseña_verificador.module.bootclasspath"/>
+      <classpath refid="contraseña_verificador.module.production.classpath"/>
+      <src refid="contraseña_verificador.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.contraseña_verificador"/>
+    </javac2>
+    
+    <copy todir="${contraseña_verificador.output.dir}">
+      <fileset dir="${module.contraseña_verificador.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.contraseña_verificador.tests" depends="register.custom.compilers,compile.module.contraseña_verificador.production" description="compile module Contraseña_Verificador; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.contraseña_verificador" description="cleanup module">
+    <delete dir="${contraseña_verificador.output.dir}"/>
+    <delete dir="${contraseña_verificador.testoutput.dir}"/>
+  </target>
+</project>
