@@ -24,6 +24,7 @@ public class Main {
                     case 1:
                         String contraseña = "";
                         write.nextLine();
+                        System.out.println("Caracteristicas minimas de una contraseña segura: 2 mayusculas 11 minuscula y 5 números");
                         System.out.println("Digite la contraseña: ");
                         contraseña = write.nextLine();
                         if (pass.esFuerte(contraseña)) {
